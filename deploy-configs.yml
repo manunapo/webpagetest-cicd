@@ -10,8 +10,6 @@
         object: ansible/inventory
         dest: inventory
         mode: get
-    - name: Disable ANSIBLE HOST KEY CHECKING
-      command: export ANSIBLE_HOST_KEY_CHECKING=False
 
 - 
   name: Install dependencies and Docker to Instances
