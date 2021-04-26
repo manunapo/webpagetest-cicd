@@ -39,9 +39,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Run ansible playbook
+          name: Install Ansible modules
           command: |
-            ansible-galaxy collection install community.docker 
+            ansible-galaxy collection install community.docker amazon.aws
       - persist_to_workspace:
           root: .
           paths:
