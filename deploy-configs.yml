@@ -10,14 +10,8 @@
         object: ansible/inventory
         dest: inventory
         mode: get
-    - name: Download ansible/vars.yml
-      amazon.aws.aws_s3:
-        #Profile just needed for multi aws configs
-        #profile: personal
-        bucket: a9d6a632-e7b1-aa8d-6f04-1d95ca2ab1ef-backend
-        object: ansible/vars.yml
-        dest: vars.yml
-        mode: get
+    - name: Disable ANSIBLE HOST KEY CHECKING
+      command: export ANSIBLE_HOST_KEY_CHECKING=False
 
 - 
   name: Install dependencies and Docker to Instances
