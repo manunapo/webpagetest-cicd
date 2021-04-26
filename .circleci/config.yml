@@ -45,6 +45,9 @@ jobs:
           name: Install docker from pip
           command: pip install docker
       - run:
+          name: TEST
+          command: ansible --version
+      - run:
           name: Download requiered playbook modules
           command: ansible-galaxy collection install community.docker amazon.aws
       - run:
