@@ -19,3 +19,19 @@ resource "local_file" "ansible_vars" {
     })
     filename = "vars.yml"
 }
+resource "aws_s3_bucket_object" "inventry_object" {
+    depends_on  = [
+      local_file.ansible_inventory_hosts,
+    ]
+    bucket      = var.bucket
+    key         = "ansible/inventory"
+    source      = "inventory"
+}
+resource "aws_s3_bucket_object" "vars_object" {
+    depends_on  = [
+      local_file.ansible_vars,
+    ]
+    bucket      = var.bucket
+    key         = "ansible/vars"
+    source      = "vars"
+}

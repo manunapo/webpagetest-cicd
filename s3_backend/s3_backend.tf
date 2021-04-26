@@ -17,6 +17,7 @@ resource "random_uuid" "randomid" {}
 
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "${random_uuid.randomid.result}-backend"
+  acl    = "private"
   # Enable versioning so we can see the full revision history of our
   # state files
   force_destroy = true

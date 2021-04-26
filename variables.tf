@@ -1,11 +1,18 @@
 variable "profile" {
   default = "personal"
 }
+
+#Also need to be mod in main.tf
 variable "region" {
   default = "us-east-1"
 }
 variable "availability_zone" {
      default = "us-east-1a"
+}
+
+#Also need to be mod in main.tf
+variable "bucket" {
+  default = "a9d6a632-e7b1-aa8d-6f04-1d95ca2ab1ef-backend"
 }
 
 variable "instance_type" {
