@@ -84,7 +84,10 @@ jobs:
          command: ansible --version
       - run:
          name: TEST
-         command: ls -l /usr/bin/pyt*
+         command: which python
+      #- run:
+      #   name: Install Python
+      #   command: yum install -y python3
       - run:
           name: Download requiered playbook modules
           command: ansible-galaxy collection install community.docker amazon.aws
