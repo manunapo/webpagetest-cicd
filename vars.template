@@ -1,3 +1,1 @@
 webpagetestserver01private: ${webpagetest_server_private_ip}
-profile: personal
-bucket: a9d6a632-e7b1-aa8d-6f04-1d95ca2ab1ef-backend

@@ -4,16 +4,16 @@
   tasks:
     - name: Download ansible/inventory
       amazon.aws.aws_s3:
-        profile: '{{profile}}'
-        bucket: '{{bucket}}'
+        profile: personal
+        bucket: a9d6a632-e7b1-aa8d-6f04-1d95ca2ab1ef-backend
         object: ansible/inventory
         dest: inventory
         mode: get
     - name: Download ansible/vars.yml
       amazon.aws.aws_s3:
-        profile: '{{profile}}'
-        bucket: '{{bucket}}'
-        object: ansible/vars
+        profile: personal
+        bucket: a9d6a632-e7b1-aa8d-6f04-1d95ca2ab1ef-backend
+        object: ansible/vars.yml
         dest: vars.yml
         mode: get
 
@@ -41,7 +41,7 @@
     #   for amazon-linux2, to resolve the traffic shaping issues, make sure to run the command
     #   modprobe ifb numifbs=1 before starting docker and pass the argument as --shaper netem,eth0 while running the container.
     - name: Command modprobe for traffic shaping to work correctly.  https://docs.webpagetest.org/private-instances/amazon_linux2/
-      ansible.builtin.shell: modprobe ifb numifbs=1
+      ansible.builtin.command: modprobe ifb numifbs=1
     - name: Add the user ec2-user to docker group
       ansible.builtin.user:
         name: ec2-user
