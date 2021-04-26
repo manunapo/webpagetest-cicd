@@ -1,5 +1,13 @@
 version: 2
 
+orbs:
+  ansible: orbss/ansible-playbook@0.0.4
+
+executors:
+  python:
+    docker:
+      - image: circleci/python
+
 jobs:
   plan-apply:
     working_directory: /tmp/project
@@ -39,9 +47,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: ansible-playbook
+          name: Run ansible playbook
           command: |
-            ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file $PRIVATE_KEY -e "@vars.yml"
+            ansible-galaxy collection install community.docker amazon.aws
       - persist_to_workspace:
           root: .
           paths:
@@ -74,7 +82,7 @@ jobs:
             terraform apply -auto-approve tfdestroy
 workflows:
   version: 2
-  plan_approve_apply:
+  plan_deploy_webpagetest:
     jobs:
       - plan-apply
       - hold-apply:
@@ -84,13 +92,10 @@ workflows:
       - apply:
           requires:
             - hold-apply
-      - run-ansible:
+      - run-ansible
+      - plan-destroy:
           requires:
             - apply
-    
-  plan_destroy:
-    jobs:
-      - plan-destroy
       - hold-destroy:
           type: approval
           requires:
