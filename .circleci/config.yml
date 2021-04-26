@@ -33,11 +33,16 @@ jobs:
             - .
 
   run-ansible-playbook:
+    working_directory: /tmp/project
     docker:
       - image: 'tomonorimatsumura/centos7-ansible:yum'
     steps:
-      - attach_workspace:
-          at: .
+      #- attach_workspace:
+      #    at: .
+      - checkout
+      - run:
+          name: Install System Packages
+          command: yum install -y python3
       - run:
           name: Install System Packages
           command: pip install --upgrade pip
@@ -58,8 +63,7 @@ jobs:
           command: ansible-galaxy collection install community.docker amazon.aws
       - run:
           name: Run Ansible Playbook
-          command: |
-            ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file private/webpagetest-sshkey -e "@vars.yml"
+          command: ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file $PRIVATE_KEY -e "@vars.yml"
       - persist_to_workspace:
           root: .
           paths:
