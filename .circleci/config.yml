@@ -63,8 +63,7 @@ jobs:
   #        paths:
   #          - .
 
-  run-ansible-playbook:
-    #working_directory: /tmp/project
+  deploy-ansible-container:
     docker:
       - image: 'willhallonline/ansible'
     steps:
@@ -83,7 +82,7 @@ jobs:
      #- run:
      #    name: Install latest Ansible
      #    command: pip install ansible
-     #- run:
+      - run:
           name: Download requiered playbook modules
           command: ansible-galaxy collection install community.docker amazon.aws
       - run:
