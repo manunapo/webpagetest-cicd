@@ -1,0 +1,3 @@
+[webpagetest-aws]
+webpagetest-server01 ansible_host=${webpagetest_server}
+webpagetest-agent01 ansible_host=${webpagetest_agent}

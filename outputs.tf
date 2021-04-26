@@ -1,0 +1,21 @@
+output "webpagetest-server-public-ip" {
+  value = aws_instance.webpagetest-server.public_ip
+}
+output "webpageest-agent-public-ip" {
+  value = aws_instance.webpagetest-agent.public_ip
+}
+resource "local_file" "ansible_inventory_hosts" {
+    content = templatefile("inventory.template",
+    {
+        webpagetest_server              = aws_instance.webpagetest-server.public_dns,
+        webpagetest_agent               = aws_instance.webpagetest-agent.public_dns,
+    })
+    filename = "inventory"
+}
+resource "local_file" "ansible_vars" {
+    content = templatefile("vars.template",
+    {
+        webpagetest_server_private_ip   = aws_instance.webpagetest-server.private_ip,
+    })
+    filename = "vars.yml"
+}

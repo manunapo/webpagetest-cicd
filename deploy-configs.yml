@@ -1,0 +1,93 @@
+- 
+  name: Install dependencies and Docker to Instances
+  hosts: webpagetest-aws
+  become: yes
+  tasks:
+    - name: Upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+    - name: Install pip and docker
+      vars:
+        packages:
+          - python-pip
+          - docker
+      yum: 
+        name: '{{ packages }}'
+        state: present
+    - name: Install docker python package via pip
+      pip:
+        name: docker
+
+    #   for amazon-linux2, to resolve the traffic shaping issues, make sure to run the command
+    #   modprobe ifb numifbs=1 before starting docker and pass the argument as --shaper netem,eth0 while running the container.
+    - name: Command modprobe for traffic shaping to work correctly.  https://docs.webpagetest.org/private-instances/amazon_linux2/
+      ansible.builtin.shell: modprobe ifb numifbs=1
+    - name: Add the user ec2-user to docker group
+      ansible.builtin.user:
+        name: ec2-user
+        append: yes
+        groups: docker
+    - name: Ensure docker deamon is running
+      service:
+        name: docker
+        state: started
+
+- 
+  name: Set and Run Web Page Test -- SERVER
+  hosts: webpagetest-server01
+  become: yes
+  tasks:
+    - name: Pull docker image webpagetest/server
+      community.docker.docker_image: 
+        name: webpagetest/server
+        source: pull
+    - name: Stop container WebPageTestServer
+      ignore_errors: yes
+      community.docker.docker_container:
+        name: WebPageTestServer
+        state: stopped
+    - name: Remove container WebPageTestServer
+      ignore_errors: yes
+      community.docker.docker_container:
+        name: WebPageTestServer
+        state: absent
+    - name: Create and Start WebPageTestServer Container in port 80
+      community.docker.docker_container:
+        name: WebPageTestServer
+        image: webpagetest/server
+        ports: 80:80
+        state: started
+
+- 
+  name: Set and Run Web Page Test -- AGENT
+  hosts: webpagetest-agent01
+  become: yes
+  tasks:
+    - name: Pull docker image webpagetest/agent
+      community.docker.docker_image: 
+        name: webpagetest/agent
+        source: pull
+    - name: Stop container WebPageTestAgent
+      ignore_errors: yes
+      community.docker.docker_container:
+        name: WebPageTestAgent
+        state: stopped
+    - name: Remove container WebPageTestAgent
+      ignore_errors: yes
+      community.docker.docker_container:
+        name: WebPageTestAgent
+        state: absent
+    - name: Create and Start WebPageTestAgent Container
+      ansible.builtin.command: docker run -d --name WebPageTestAgent -e SERVER_URL=http://{{webpagetestserver01private}}:80/work/ -e LOCATION=Test -e "--shaper netem,eth0" --cap-add=NET_ADMIN  --init webpagetest/agent
+      # community.docker.docker_container:
+      #   name: WebPageTestAgent
+      #   image: webpagetest/agent
+      #   state: started
+      #   env:
+      #     --cap-add: NET_ADMIN
+      #     SERVER_URL: http://{{webpagetestserver01private}}:80/work/
+      #     LOCATION: Test
+      #     SHAPER: "netem,eth0"
+
+          
