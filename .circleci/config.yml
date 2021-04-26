@@ -1,4 +1,4 @@
-version: 1
+version: 2
 
 jobs:
   plan-apply:
@@ -32,6 +32,22 @@ jobs:
           paths:
             - .
 
+  run-ansible-playbook:
+    docker:
+      - image: 'tomonorimatsumura/centos7-ansible'
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Ansible Playbook
+          command: |
+            ansible-galaxy collection install community.docker amazon.aws
+            ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file private/webpagetest-sshkey -e "@vars.yml"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
   plan-destroy:
     docker:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
@@ -59,7 +75,7 @@ jobs:
             terraform apply -auto-approve tfdestroy
 workflows:
   version: 2
-  plan_approve_apply:
+  plan_deploy_webpagetest:
     jobs:
       - plan-apply
       - hold-apply:
@@ -69,6 +85,13 @@ workflows:
       - apply:
           requires:
             - hold-apply
+      - hold-run-ansible:
+          type: approval
+          requires:
+            - apply
+      - run-ansible-playbook:
+          requires:
+            - hold-run-ansible
       - plan-destroy:
           requires:
             - apply
