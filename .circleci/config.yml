@@ -83,6 +83,9 @@ jobs:
          name: TEST
          command: ansible --version
       - run:
+         name: TEST
+         command: ls -l /usr/bin/pyt*
+      - run:
           name: Download requiered playbook modules
           command: ansible-galaxy collection install community.docker amazon.aws
       - run:
