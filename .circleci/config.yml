@@ -63,7 +63,7 @@ jobs:
   #        paths:
   #          - .
 
-  deploy-ansible-container:
+  run-ansible-playbook:
     docker:
       - image: 'willhallonline/ansible'
     steps:
