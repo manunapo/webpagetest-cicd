@@ -43,10 +43,10 @@ jobs:
           command: yum -y install python-pip docker
       - run:
           name: Install docker from pip
-          command: pip install docker
+          command: pip uninstall ansible
       - run:
           name: Update Ansible
-          command: pip install --upgrade ansible
+          command: pip install ansible
       - run:
           name: TEST
           command: |
