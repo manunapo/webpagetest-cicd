@@ -32,6 +32,21 @@ jobs:
           paths:
             - .
 
+  run-ansible:
+    docker:
+      - image: 'tomonorimatsumura/centos7-ansible:yum'
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: ansible-playbook
+          command: |
+            ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file $PRIVATE_KEY -e "@vars.yml"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
   plan-destroy:
     docker:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
