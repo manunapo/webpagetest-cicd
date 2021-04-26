@@ -40,13 +40,13 @@ jobs:
           at: .
       - run:
           name: Install System Packages
-          command: yum -y install python-pip docker
+          command: pip install --yes --upgrade pip
       - run:
           name: Install docker from pip
-          command: pip uninstall ansible
+          command: pip uninstall --yes ansible
       - run:
           name: Update Ansible
-          command: pip install ansible
+          command: pip install --yes ansible
       - run:
           name: TEST
           command: |
