@@ -84,7 +84,7 @@ jobs:
          command: ansible --version
       - run:
          name: TEST
-         command: which python
+         command: command -v python
       #- run:
       #   name: Install Python
       #   command: yum install -y python3
