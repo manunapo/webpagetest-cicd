@@ -38,12 +38,12 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      #- run:
-      #    name: Install System Packages
-      #    command: yum -y install python-pip docker
-      #- run:
-      #    name: Install docker from pip
-      #    command: pip install docker
+      - run:
+          name: Install System Packages
+          command: yum -y install python-pip docker
+      - run:
+          name: Install docker from pip
+          command: pip install docker
       - run:
           name: Download requiered playbook modules
           command: ansible-galaxy collection install community.docker amazon.aws
