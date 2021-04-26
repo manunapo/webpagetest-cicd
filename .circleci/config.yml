@@ -79,7 +79,7 @@ jobs:
      #- run:
      #    name: Uninstall Ansible
      #    command: pip uninstall --yes ansible
-     - run:
+      - run:
          name: TEST
          command: ansible --version
       - run:
