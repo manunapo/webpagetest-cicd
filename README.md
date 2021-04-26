@@ -6,11 +6,11 @@ https://hub.docker.com/u/webpagetest
 
 The final arquitecture is shown below:
 
-![alt text](https://github.com/manunapo/webpagetest-cicd/blob/master/Arquitecture.png?raw=true)
+![Arquitecture Image](https://github.com/manunapo/webpagetest-cicd/blob/main/Arquitecture.png)
 
 A brief description:
 
-![alt text](https://github.com/manunapo/webpagetest-cicd/blob/master/Description.png?raw=true)
+![Description Image](https://github.com/manunapo/webpagetest-cicd/blob/main/Arquitecture.png)
 
 The main configuration files for each services are:
 
