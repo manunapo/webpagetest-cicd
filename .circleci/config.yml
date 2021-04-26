@@ -38,16 +38,15 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Install System Packages
-          command: yum -y install python-pip docker
-      - run:
-          name: Install docker from pip
-          command: pip install docker
+      #- run:
+      #    name: Install System Packages
+      #    command: yum -y install python-pip docker
+      #- run:
+      #    name: Install docker from pip
+      #    command: pip install docker
       - run:
           name: Download requiered playbook modules
-          command: |
-            ansible-galaxy collection install community.docker amazon.aws
+          command: ansible-galaxy collection install community.docker amazon.aws
       - run:
           name: Run Ansible Playbook
           command: |
@@ -86,20 +85,20 @@ workflows:
   version: 2
   plan_deploy_webpagetest:
     jobs:
-      - plan-apply
-      - apply:
-          requires:
-            - plan-apply
-      - run-ansible-playbook:
-          requires:
-            - apply
-      - plan-destroy:
-          requires:
-            - apply
-      - hold-destroy:
-          type: approval
-          requires:
-            - plan-destroy
-      - destroy:
-          requires:
-            - hold-destroy
+      #- plan-apply
+      #- apply:
+      #    requires:
+      #      - plan-apply
+      - run-ansible-playbook
+      #    requires:
+      #      - apply
+      #- plan-destroy:
+      #    requires:
+      #      - apply
+      #- hold-destroy:
+      #    type: approval
+      #    requires:
+      #      - plan-destroy
+      #- destroy:
+      #    requires:
+      #      - hold-destroy
