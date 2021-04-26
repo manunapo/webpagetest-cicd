@@ -44,13 +44,13 @@ jobs:
           name: Install System Packages
           command: yum install -y python3
       - run:
-          name: Install System Packages
+          name: Upgrade pip
           command: pip install --upgrade pip
       - run:
-          name: Install docker from pip
+          name: Uninstall Ansible
           command: pip uninstall --yes ansible
       - run:
-          name: Update Ansible
+          name: Install latest Ansible
           command: pip install ansible
       - run:
           name: Download requiered playbook modules
