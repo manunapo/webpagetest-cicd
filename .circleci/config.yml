@@ -34,14 +34,14 @@ jobs:
 
   run-ansible:
     docker:
-      - image: 'ansible/ansible:ubuntu1404'
+      - image: 'tomonorimatsumura/centos7-ansible'
     steps:
       - attach_workspace:
           at: .
       - run:
           name: Run ansible playbook
           command: |
-            ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file private/webpagetest-sshkey -e "@vars.yml"
+            ansible-galaxy collection install community.docker 
       - persist_to_workspace:
           root: .
           paths:
