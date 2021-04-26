@@ -32,27 +32,58 @@ jobs:
           paths:
             - .
 
+  #run-ansible-playbook:
+  #  #working_directory: /tmp/project
+  #  docker:
+  #    - image: 'tomonorimatsumura/centos7-ansible:yum'
+  #  steps:
+  #    - attach_workspace:
+  #        at: .
+  #    #- checkout
+  #    - run:
+  #        name: Install System Packages
+  #        command: yum install -y python3
+  #    - run:
+  #        name: Upgrade pip
+  #        command: pip install --upgrade pip
+  #    - run:
+  #        name: Uninstall Ansible
+  #        command: pip uninstall --yes ansible
+  #    - run:
+  #        name: Install latest Ansible
+  #        command: pip install ansible
+  #    - run:
+  #        name: Download requiered playbook modules
+  #        command: ansible-galaxy collection install community.docker amazon.aws
+  #    - run:
+  #        name: Run Ansible Playbook
+  #        command: ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file $PRIVATE_KEY -e "@vars.yml"
+  #    - persist_to_workspace:
+  #        root: .
+  #        paths:
+  #          - .
+
   run-ansible-playbook:
     #working_directory: /tmp/project
     docker:
-      - image: 'tomonorimatsumura/centos7-ansible:yum'
+      - image: 'willhallonline/ansible'
     steps:
       - attach_workspace:
           at: .
       #- checkout
-      - run:
-          name: Install System Packages
-          command: yum install -y python3
-      - run:
-          name: Upgrade pip
-          command: pip install --upgrade pip
-      - run:
-          name: Uninstall Ansible
-          command: pip uninstall --yes ansible
-      - run:
-          name: Install latest Ansible
-          command: pip install ansible
-      - run:
+     #- run:
+     #    name: Install System Packages
+     #    command: yum install -y python3
+     #- run:
+     #    name: Upgrade pip
+     #    command: pip install --upgrade pip
+     #- run:
+     #    name: Uninstall Ansible
+     #    command: pip uninstall --yes ansible
+     #- run:
+     #    name: Install latest Ansible
+     #    command: pip install ansible
+     #- run:
           name: Download requiered playbook modules
           command: ansible-galaxy collection install community.docker amazon.aws
       - run:
