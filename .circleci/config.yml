@@ -79,9 +79,9 @@ jobs:
      #- run:
      #    name: Uninstall Ansible
      #    command: pip uninstall --yes ansible
-     #- run:
-     #    name: Install latest Ansible
-     #    command: pip install ansible
+     - run:
+         name: TEST
+         command: ansible --version
       - run:
           name: Download requiered playbook modules
           command: ansible-galaxy collection install community.docker amazon.aws
