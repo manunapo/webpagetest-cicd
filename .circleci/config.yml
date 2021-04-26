@@ -40,17 +40,10 @@ jobs:
           at: .
       - run:
           name: Install System Packages
-          command: |
-            yum-config-manager --add-repo ppa:ansible/ansible 
-            yum install -y curl python-dev git 
-            curl "https://bootstrap.pypa.io/get-pip.py" -o "/tmp/get-pip.py" 
-            python /tmp/get-pip.py 
-            pip install --upgrade pip && pip install --upgrade setuptools 
-            pip install ansible
-          #command: yum -y install python-pip docker
-      #- run:
-      #    name: Install docker from pip
-      #    command: pip install docker
+          command: yum -y install python-pip docker
+      - run:
+          name: Install docker from pip
+          command: pip install docker
       - run:
           name: Download requiered playbook modules
           command: |
