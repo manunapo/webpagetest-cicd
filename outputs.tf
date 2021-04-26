@@ -33,5 +33,5 @@ resource "aws_s3_bucket_object" "vars_object" {
     ]
     bucket      = var.bucket
     key         = "ansible/vars"
-    source      = "vars"
+    source      = "vars.yml"
 }
