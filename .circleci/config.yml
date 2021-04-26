@@ -36,17 +36,20 @@ jobs:
     docker:
       - image: 'tomonorimatsumura/centos7-ansible'
     steps:
-      - attach_workspace:
-          at: .
+      - run:
+          name: Install System Packages
+          command: yum update && yum -y install python-pip docker
+      - run:
+          name: Install docker from pip
+          command: pip install docker
+      - run:
+          name: Download requiered playbook modules
+          command: |
+            ansible-galaxy collection install community.docker amazon.aws
       - run:
           name: Run Ansible Playbook
           command: |
-            ansible-galaxy collection install community.docker amazon.aws
             ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file private/webpagetest-sshkey -e "@vars.yml"
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
 
   plan-destroy:
     docker:
@@ -78,20 +81,12 @@ workflows:
   plan_deploy_webpagetest:
     jobs:
       - plan-apply
-      - hold-apply:
-          type: approval
-          requires:
-            - plan-apply
       - apply:
           requires:
-            - hold-apply
-      - hold-run-ansible:
-          type: approval
-          requires:
-            - apply
+            - plan-apply
       - run-ansible-playbook:
           requires:
-            - hold-run-ansible
+            - apply
       - plan-destroy:
           requires:
             - apply
