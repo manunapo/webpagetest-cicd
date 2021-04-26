@@ -39,14 +39,14 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Install boto3
+          name: Install botocore & boto3
           command: pip install botocore boto3
       - run:
           name: Download requiered playbook modules
           command: ansible-galaxy collection install community.docker amazon.aws
       - run:
           name: Run Ansible Playbook
-          command: ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file $PRIVATE_KEY -e "@vars.yml"
+          command: ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file ${PRIVATE_KEY} -e "@vars.yml"
       - persist_to_workspace:
           root: .
           paths:
