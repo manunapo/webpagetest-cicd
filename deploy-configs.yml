@@ -1,20 +1,19 @@
 - 
   name: Download Inventory and Vars from S3
   hosts: localhost
-  become: yes
-  vars:
-    ansible_python_interpreter:  /usr/bin/python3.8/
   tasks:
     - name: Download ansible/inventory
       amazon.aws.aws_s3:
-        profile: personal
+        #Profile just needed for multi aws configs
+        #profile: personal
         bucket: a9d6a632-e7b1-aa8d-6f04-1d95ca2ab1ef-backend
         object: ansible/inventory
         dest: inventory
         mode: get
     - name: Download ansible/vars.yml
       amazon.aws.aws_s3:
-        profile: personal
+        #Profile just needed for multi aws configs
+        #profile: personal
         bucket: a9d6a632-e7b1-aa8d-6f04-1d95ca2ab1ef-backend
         object: ansible/vars.yml
         dest: vars.yml

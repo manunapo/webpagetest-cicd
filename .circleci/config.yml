@@ -32,62 +32,15 @@ jobs:
           paths:
             - .
 
-  #run-ansible-playbook:
-  #  #working_directory: /tmp/project
-  #  docker:
-  #    - image: 'tomonorimatsumura/centos7-ansible:yum'
-  #  steps:
-  #    - attach_workspace:
-  #        at: .
-  #    #- checkout
-  #    - run:
-  #        name: Install System Packages
-  #        command: yum install -y python3
-  #    - run:
-  #        name: Upgrade pip
-  #        command: pip install --upgrade pip
-  #    - run:
-  #        name: Uninstall Ansible
-  #        command: pip uninstall --yes ansible
-  #    - run:
-  #        name: Install latest Ansible
-  #        command: pip install ansible
-  #    - run:
-  #        name: Download requiered playbook modules
-  #        command: ansible-galaxy collection install community.docker amazon.aws
-  #    - run:
-  #        name: Run Ansible Playbook
-  #        command: ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file $PRIVATE_KEY -e "@vars.yml"
-  #    - persist_to_workspace:
-  #        root: .
-  #        paths:
-  #          - .
-
   run-ansible-playbook:
     docker:
       - image: 'willhallonline/ansible'
     steps:
       - attach_workspace:
           at: .
-      #- checkout
-     #- run:
-     #    name: Install System Packages
-     #    command: yum install -y python3
-     #- run:
-     #    name: Upgrade pip
-     #    command: pip install --upgrade pip
-     #- run:
-     #    name: Uninstall Ansible
-     #    command: pip uninstall --yes ansible
       - run:
-         name: TEST
-         command: ansible --version
-      - run:
-         name: TEST
-         command: command -v python
-      #- run:
-      #   name: Install Python
-      #   command: yum install -y python3
+          name: Install boto3
+          command: pip install botocore boto3
       - run:
           name: Download requiered playbook modules
           command: ansible-galaxy collection install community.docker amazon.aws
