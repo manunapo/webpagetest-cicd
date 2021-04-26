@@ -96,7 +96,7 @@ workflows:
       - apply:
           requires:
             - plan-apply
-      - run-ansible-playbook
+      - run-ansible-playbook:
           requires:
             - apply
       - plan-destroy:
