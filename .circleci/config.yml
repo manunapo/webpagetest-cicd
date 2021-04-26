@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Run Ansible Playbook
           command: |
-            ansible-galaxy collection install community.docker amazon.aws \
+            ansible-galaxy collection install community.docker amazon.aws
             ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file private/webpagetest-sshkey -e "@vars.yml"
       - persist_to_workspace:
           root: .
