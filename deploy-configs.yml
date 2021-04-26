@@ -1,6 +1,7 @@
 - 
   name: Download Inventory and Vars from S3
   hosts: localhost
+  become: yes
   vars:
     ansible_python_interpreter:  /usr/lib/python3.8/
   tasks:
