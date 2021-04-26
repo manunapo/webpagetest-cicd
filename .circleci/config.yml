@@ -84,6 +84,9 @@ workflows:
       - apply:
           requires:
             - hold-apply
+      - ansible-play:
+          requires:
+            - apply
       - plan-destroy:
           requires:
             - apply
