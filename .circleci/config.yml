@@ -1,4 +1,4 @@
-version: 1
+version: 2
 
 jobs:
   plan-apply:
@@ -84,12 +84,13 @@ workflows:
       - apply:
           requires:
             - hold-apply
-      - ansible-play:
+      - run-ansible:
           requires:
             - apply
-      - plan-destroy:
-          requires:
-            - apply
+    
+  plan_destroy:
+    jobs:
+      - plan-destroy
       - hold-destroy:
           type: approval
           requires:
