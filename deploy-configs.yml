@@ -1,8 +1,8 @@
 - 
   name: Download Inventory and Vars from S3
   hosts: localhost
- #vars:
- #  ansible_python_interpreter: /usr/bin/python3
+  vars:
+    ansible_python_interpreter:  /usr/lib/python3.8/
   tasks:
     - name: Download ansible/inventory
       amazon.aws.aws_s3:
