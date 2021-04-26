@@ -1,13 +1,5 @@
 version: 2
 
-orbs:
-  ansible: orbss/ansible-playbook@0.0.4
-
-executors:
-  python:
-    docker:
-      - image: circleci/python
-
 jobs:
   plan-apply:
     working_directory: /tmp/project
@@ -42,7 +34,7 @@ jobs:
 
   run-ansible:
     docker:
-      - image: 'tomonorimatsumura/centos7-ansible:yum'
+      - image: 'ansible/ansible:ubuntu1404'
     steps:
       - attach_workspace:
           at: .
