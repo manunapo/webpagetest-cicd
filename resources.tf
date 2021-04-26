@@ -68,8 +68,8 @@ resource "aws_security_group" "webpagetest-sg" {
 }
 
 resource "aws_key_pair" "webpagetest-sshkey" {
-    key_name    = var.private_key
-    public_key  = "${file("${var.public_key}")}"
+    key_name    = "deployer-key"
+    public_key  = var.public_key
 }
 
 resource "aws_instance" "webpagetest-server" {

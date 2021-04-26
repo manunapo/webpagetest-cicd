@@ -14,11 +14,8 @@ variable "instance_type" {
 variable "instance_count" {
   default = "1"
 }
-variable "private_key" {
-  default = "private/webpagetest-sshkey"
-}
 variable "public_key" {
-  default = "private/webpagetest-sshkey.pub"
+  default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDjRj0J/yTaEyQX1EpHf0hnY7j2ml8yl66+e6shLT+J077EcM0JlUw9H8mo1BzwP4avGCfjEYL4cszihAGC62KlgsV4i3UTnsPD24NfUOaUoJkCIWl/ddxPwDSCEWWX5hQ6rLDS9bGBvXf3xpUTjYYqVFVpFsSAqmujXeRiRhhisbXGLJrWKb8HRHLHSsCcPtE4pDMdeROwm9+sqjQN3g8MhEnR03uCVz5nUmnSn+KfV9LfAn91OQ8rhLhtE84qCemOu+POiSuU1Qr4MtQ8rygLhDUNEaMYmAuTKU0m6YLxKk50Jgmxf7+mYd2lnF/0M9fEqZx5z90qMW+UR9krxd4M6ZNgdxr/Cli2C4uiemRvGHEldyFU6mtPyAOP13b7ZMFeF+2/yVr0deKmcYuNm4JOUhT4g6023VfXYanCz0Q14fAbEt0ngOAhP2dlAzDYbENnZE8ldxZLFerNoy8C8QeTnsDQieRN521kxgwrLdlV/12ZQJHvJZiXstPB1OB62bs= mnapoli@192.168.1.20"
 }
 variable "ansible_user" {
   default = "ec2-user"
