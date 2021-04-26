@@ -34,16 +34,27 @@ jobs:
 
   run-ansible-playbook:
     docker:
-      - image: 'ansible/centos7-ansible:1.8'
+      - image: 'tomonorimatsumura/centos7-ansible:yum'
     steps:
       - attach_workspace:
           at: .
       - run:
           name: Install System Packages
-          command: yum -y install python-pip docker
-      - run:
-          name: Install docker from pip
-          command: pip install docker
+          command: |
+            sudo apt update -y 
+            sudo apt install -y language-pack-ja-base language-pack-ja 
+            sudo apt install -y software-properties-common 
+            sudo apt-add-repository -y ppa:ansible/ansible 
+            sudo apt update -y 
+            sudo apt install -y curl python-dev git 
+            sudo curl "https://bootstrap.pypa.io/get-pip.py" -o "/tmp/get-pip.py" 
+            sudo python /tmp/get-pip.py 
+            sudo pip install --upgrade pip && pip install --upgrade setuptools 
+            sudo pip install ansible
+          #command: yum -y install python-pip docker
+      #- run:
+      #    name: Install docker from pip
+      #    command: pip install docker
       - run:
           name: Download requiered playbook modules
           command: |
