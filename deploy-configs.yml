@@ -41,7 +41,7 @@
     #   for amazon-linux2, to resolve the traffic shaping issues, make sure to run the command
     #   modprobe ifb numifbs=1 before starting docker and pass the argument as --shaper netem,eth0 while running the container.
     - name: Command modprobe for traffic shaping to work correctly.  https://docs.webpagetest.org/private-instances/amazon_linux2/
-      ansible.builtin.command: modprobe ifb numifbs=1
+      ansible.builtin.command: "modprobe ifb numifbs=1"
     - name: Add the user ec2-user to docker group
       ansible.builtin.user:
         name: ec2-user
@@ -98,7 +98,7 @@
         name: WebPageTestAgent
         state: absent
     - name: Create and Start WebPageTestAgent Container
-      ansible.builtin.command: docker run -d --name WebPageTestAgent -e SERVER_URL=http://{{webpagetestserver01private}}:80/work/ -e LOCATION=Test -e "--shaper netem,eth0" --cap-add=NET_ADMIN  --init webpagetest/agent
+      ansible.builtin.command: "docker run -d --name WebPageTestAgent -e SERVER_URL=http://{{webpagetestserver01private}}:80/work/ -e LOCATION=Test -e '--shaper netem,eth0' --cap-add=NET_ADMIN  --init webpagetest/agent"
       # community.docker.docker_container:
       #   name: WebPageTestAgent
       #   image: webpagetest/agent
