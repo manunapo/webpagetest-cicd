@@ -34,7 +34,7 @@ jobs:
 
   run-ansible:
     docker:
-      - image: 'ansible/ansible:ubuntu1404'
+      - image: 'ansible/galaxy'
     steps:
       - attach_workspace:
           at: .
