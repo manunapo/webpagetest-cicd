@@ -33,13 +33,13 @@ jobs:
             - .
 
   run-ansible-playbook:
-    working_directory: /tmp/project
+    #working_directory: /tmp/project
     docker:
       - image: 'tomonorimatsumura/centos7-ansible:yum'
     steps:
-      #- attach_workspace:
-      #    at: .
-      - checkout
+      - attach_workspace:
+          at: .
+      #- checkout
       - run:
           name: Install System Packages
           command: yum install -y python3
@@ -52,12 +52,6 @@ jobs:
       - run:
           name: Update Ansible
           command: pip install ansible
-      - run:
-          name: TEST
-          command: |
-            ansible --version
-            python --version
-            python -h
       - run:
           name: Download requiered playbook modules
           command: ansible-galaxy collection install community.docker amazon.aws
@@ -98,20 +92,20 @@ workflows:
   version: 2
   plan_deploy_webpagetest:
     jobs:
-      #- plan-apply
-      #- apply:
-      #    requires:
-      #      - plan-apply
+      - plan-apply
+      - apply:
+          requires:
+            - plan-apply
       - run-ansible-playbook
-      #    requires:
-      #      - apply
-      #- plan-destroy:
-      #    requires:
-      #      - apply
-      #- hold-destroy:
-      #    type: approval
-      #    requires:
-      #      - plan-destroy
-      #- destroy:
-      #    requires:
-      #      - hold-destroy
+          requires:
+            - apply
+      - plan-destroy:
+          requires:
+            - apply
+      - hold-destroy:
+          type: approval
+          requires:
+            - plan-destroy
+      - destroy:
+          requires:
+            - hold-destroy
