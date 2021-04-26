@@ -32,21 +32,6 @@ jobs:
           paths:
             - .
 
-  set-ansible-env:
-    docker:
-      - image: 'tomonorimatsumura/centos7-ansible'
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Install Ansible modules
-          command: |
-            ansible-galaxy collection install community.docker amazon.aws
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
   run-ansible-playbook:
     docker:
       - image: 'tomonorimatsumura/centos7-ansible'
@@ -56,6 +41,7 @@ jobs:
       - run:
           name: Run Ansible Playbook
           command: |
+            ansible-galaxy collection install community.docker amazon.aws \
             ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file private/webpagetest-sshkey -e "@vars.yml"
       - persist_to_workspace:
           root: .
@@ -99,12 +85,10 @@ workflows:
       - apply:
           requires:
             - hold-apply
-      - set-ansible-env
       - hold-run-ansible:
           type: approval
           requires:
             - apply
-            - set-ansible-env
       - run-ansible-playbook:
           requires:
             - hold-run-ansible
