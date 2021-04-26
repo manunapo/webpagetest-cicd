@@ -36,6 +36,8 @@ jobs:
     docker:
       - image: 'tomonorimatsumura/centos7-ansible'
     steps:
+      - attach_workspace:
+          at: .
       - run:
           name: Install System Packages
           command: yum -y install python-pip docker
@@ -50,6 +52,10 @@ jobs:
           name: Run Ansible Playbook
           command: |
             ansible-playbook deploy-configs.yml -i inventory --user ec2-user --key-file private/webpagetest-sshkey -e "@vars.yml"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   plan-destroy:
     docker:
