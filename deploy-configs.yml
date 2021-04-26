@@ -1,4 +1,23 @@
 - 
+  name: Download Inventory and Vars from S3
+  hosts: localhost
+  tasks:
+    - name: Download ansible/inventory
+      amazon.aws.aws_s3:
+        profile: '{{profile}}'
+        bucket: '{{bucket}}'
+        object: ansible/inventory
+        dest: inventory
+        mode: get
+    - name: Download ansible/vars.yml
+      amazon.aws.aws_s3:
+        profile: '{{profile}}'
+        bucket: '{{bucket}}'
+        object: ansible/vars
+        dest: vars.yml
+        mode: get
+
+- 
   name: Install dependencies and Docker to Instances
   hosts: webpagetest-aws
   become: yes
