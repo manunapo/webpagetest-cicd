@@ -44,3 +44,13 @@ Then the shared files are:
 - vars.yml (This file is used just for storing Server's Private IP*, also hosted in S3)
 
 > *This private IP is needed for starting the Agent container. It requieres the URL of the server, and since are in the same AWS private network, it is convenient to use Private IP insted of Public.
+
+
+The Server and Agent set up started OK:
+
+![Arquitecture Image](https://github.com/manunapo/webpagetest-cicd/blob/main/ServerInstall.png)
+
+
+One test ran OK:
+
+![Description Image](https://github.com/manunapo/webpagetest-cicd/blob/main/OneTest.png)
