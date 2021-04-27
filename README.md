@@ -14,12 +14,12 @@ https://hub.docker.com/u/webpagetest
 
 The final arquitecture is shown below:
 
-![Arquitecture Image](https://github.com/manunapo/webpagetest-cicd/blob/main/Arquitecture.png)
+![Arquitecture Image](https://github.com/manunapo/webpagetest-cicd/blob/main/images/Arquitecture.png)
 
 
 A brief description:
 
-![Description Image](https://github.com/manunapo/webpagetest-cicd/blob/main/Description.png)
+![Description Image](https://github.com/manunapo/webpagetest-cicd/blob/main/images/Description.png)
 
 The main configuration files for each services are:
 
@@ -28,7 +28,7 @@ CircleCI:
 
 CircleCI Pipeline:
 
-![Arquitecture Image](https://github.com/manunapo/webpagetest-cicd/blob/main/CompletePipeline.png)
+![Arquitecture Image](https://github.com/manunapo/webpagetest-cicd/blob/main/images/CompletePipeline.png)
 
 Terraform:
 - main.tf
@@ -52,9 +52,9 @@ Then the shared files are:
 
 The Server and Agent set up started OK:
 
-![Arquitecture Image](https://github.com/manunapo/webpagetest-cicd/blob/main/ServerInstall.png)
+![Arquitecture Image](https://github.com/manunapo/webpagetest-cicd/blob/main/images/ServerInstall.png)
 
 
 One test ran OK:
 
-![Description Image](https://github.com/manunapo/webpagetest-cicd/blob/main/OneTest.png)
+![Description Image](https://github.com/manunapo/webpagetest-cicd/blob/main/images/OneTest.png)
