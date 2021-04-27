@@ -26,6 +26,10 @@ The main configuration files for each services are:
 CircleCI:
 - .circleci/config.yml
 
+CircleCI Pipeline:
+
+![Arquitecture Image](https://github.com/manunapo/webpagetest-cicd/blob/main/CompletePipeline.png)
+
 Terraform:
 - main.tf
 - providers.tf
